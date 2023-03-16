@@ -15,4 +15,11 @@ let password = text(
     isSecureEntry: true
 )
 
+enum Food {
+    case banana
+    case raspberry
+}
+
+let option = select(title: "Pick a fruit!", options: [Selectable(title: "🍌 Banana", value: Food.banana), Selectable(title: "🫐 Blueberry", value: .raspberry)])
+
 outro(text: "This is an outro component!")
