@@ -3,6 +3,7 @@ import ANSITerminal
 
 func readTextInput(
     validate: (String) -> Bool = { _ in true },
+    validationFailed: () -> Void = {},
     onNewCharacter: (Character) -> Void,
     onDelete: (Int, Int) -> Void
 ) -> String {
@@ -14,7 +15,11 @@ func readTextInput(
         if keyPressed() {
             let char = readChar()
             if char == NonPrintableChar.enter.char() {
-                break
+                if validate(output) {
+                    break
+                } else {
+                    validationFailed()
+                }
             } else if char == NonPrintableChar.del.char() {
                 let cursorPosition = readCursorPos()
                 if output.count > 0 {
