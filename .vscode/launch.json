@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug ClackExample",
+      "program": "${workspaceFolder:clack-swift}/.build/debug/ClackExample",
+      "args": [],
+      "cwd": "${workspaceFolder:clack-swift}",
+      "preLaunchTask": "swift: Build Debug ClackExample"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release ClackExample",
+      "program": "${workspaceFolder:clack-swift}/.build/release/ClackExample",
+      "args": [],
+      "cwd": "${workspaceFolder:clack-swift}",
+      "preLaunchTask": "swift: Build Release ClackExample"
+    }
+  ]
+}

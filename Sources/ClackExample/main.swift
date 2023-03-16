@@ -1,5 +1,7 @@
 import Clack
 
+intro(title: "This is an intro component!")
+
 let output = text(
     question: "Hello, what's your name?",
     placeholder: "Enter your name",
@@ -12,3 +14,5 @@ let password = text(
     validator: .init(validate: { $0.count > 8 }, failureString: "🔐 The password needs to be at least 8 characters long"),
     isSecureEntry: true
 )
+
+outro(text: "This is an outro component!")
