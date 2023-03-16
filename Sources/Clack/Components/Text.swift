@@ -21,38 +21,41 @@ public func text(question: String, isSecureEntry: Bool = false) -> String {
     moveLineUp()
     moveRight(2)
     
-    if isSecureEntry {
-        while true {
-            clearBuffer()
-            
-            if keyPressed() {
-                let char = readChar()
-                if char == NonPrintableChar.enter.char() {
-                    break
-                } else if char == NonPrintableChar.del.char() {
-                    let cursorPosition = readCursorPos()
-                    if cursorPosition.col > 3 {
-                        moveTo(cursorPosition.row, cursorPosition.col - 1)
-                        deleteChar()
-                    }
-                }
-                
-                if !isNonPrintable(char: char) {
-                    write("▪")
+    let textInput = readTextInput(isSecureEntry: isSecureEntry)
+    
+    cleanUp(startLine: promptStartLine, endLine: bottomPos.row)
+    
+    return textInput
+}
+
+func readTextInput(isSecureEntry: Bool) -> String {
+    var output = ""
+
+    while true {
+        clearBuffer()
+        
+        if keyPressed() {
+            let char = readChar()
+            if char == NonPrintableChar.enter.char() {
+                break
+            } else if char == NonPrintableChar.del.char() {
+                let cursorPosition = readCursorPos()
+                if cursorPosition.col > 3 {
+                    moveTo(cursorPosition.row, cursorPosition.col - 1)
+                    deleteChar()
+                    _ = output.removeLast()
                 }
             }
+            
+            if !isNonPrintable(char: char) {
+                let printableCharacter = isSecureEntry ? "▪" : char
+                output.append(char)
+                write("\(printableCharacter)")
+            }
         }
-        
-        cleanUp(startLine: promptStartLine, endLine: bottomPos.row)
-        
-        return ""
-    } else {
-        let answer = ask("")
-        
-        cleanUp(startLine: promptStartLine, endLine: bottomPos.row)
-        
-        return answer
     }
+    
+    return output
 }
 
 func cleanUp(startLine: Int, endLine: Int) {
