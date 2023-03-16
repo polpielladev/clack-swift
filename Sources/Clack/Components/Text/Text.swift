@@ -15,7 +15,7 @@ public struct Validator {
     }
 }
 
-public func text(question: String, validator: Validator? = nil, isSecureEntry: Bool = false) -> String {
+public func text(question: String, placeholder: String = "", validator: Validator? = nil, isSecureEntry: Bool = false) -> String {
     cursorOn()
     moveLineDown()
     let promptStartLine = readCursorPos().row
@@ -30,6 +30,9 @@ public func text(question: String, validator: Validator? = nil, isSecureEntry: B
     let bottomPos = readCursorPos()
     moveLineUp()
     moveRight(2)
+    let initialCursorPosition = readCursorPos()
+    write(placeholder.foreColor(244))
+    moveTo(initialCursorPosition.row, initialCursorPosition.col)
     
     var validationFailed = false
     
@@ -59,7 +62,15 @@ public func text(question: String, validator: Validator? = nil, isSecureEntry: B
             }
             write("\(isSecureEntry ? "▪" : char)")
         },
-        onDelete: { row, col in moveTo(row, col); deleteChar() }
+        onDelete: { row, col in moveTo(row, col); deleteChar() },
+        removePlaceholder: {
+            moveTo(initialCursorPosition.row, initialCursorPosition.col)
+            clearToEndOfLine()
+        },
+        showPlaceholder:  {
+            write(placeholder.foreColor(244))
+            moveTo(initialCursorPosition.row, initialCursorPosition.col)
+        }
     )
     
     cleanUp(startLine: promptStartLine, endLine: bottomPos.row)
