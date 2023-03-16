@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Clack",
+    products: [
+        .library(name: "Clack", targets: ["Clack"])
+    ],
     dependencies: [
         .package(url: "https://github.com/pakLebah/ANSITerminal.git", exact: "0.0.3")
     ],
