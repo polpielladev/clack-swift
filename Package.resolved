@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "ansiterminal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pakLebah/ANSITerminal.git",
+      "state" : {
+        "revision" : "8e24fab68c660eca1244a95019ec69a11400d62b",
+        "version" : "0.0.3"
+      }
+    }
+  ],
+  "version" : 2
+}
