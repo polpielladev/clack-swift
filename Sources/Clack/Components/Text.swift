@@ -5,7 +5,7 @@ func writeAt(_ row: Int, _ col: Int, _ text: String) {
     write(text)
 }
 
-func text(question: String, isSecureEntry: Bool = false) -> String {
+public func text(question: String, isSecureEntry: Bool = false) -> String {
     cursorOn()
     moveLineDown()
     let promptStartLine = readCursorPos().row
@@ -62,4 +62,6 @@ func cleanUp(startLine: Int, endLine: Int) {
     (startLine + 1...endLine).forEach { writeAt($0, 0, ANSIChar.bracketLine) }
     
     moveTo(endLine, 0)
+    
+    cursorOn()
 }

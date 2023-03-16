@@ -9,9 +9,10 @@ let package = Package(
         .package(url: "https://github.com/pakLebah/ANSITerminal.git", exact: "0.0.3")
     ],
     targets: [
-        .executableTarget(
+        .target(
             name: "Clack",
             dependencies: ["ANSITerminal"]),
+        .executableTarget(name: "ClackExample", dependencies: ["Clack"]),
         .testTarget(
             name: "ClackTests",
             dependencies: ["Clack"]),
